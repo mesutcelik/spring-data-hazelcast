@@ -37,6 +37,25 @@ public class Oscars {
 			{ 2011, "Jean", "Dujardin" }, { 2012, "Daniel", "Day-Lewis" }, { 2013, "Mathew", "McConaughey" },
 			{ 2014, "Eddie", "Redmayne" }, { 2015, "Leonardo", "DiCaprio" }, };
 
+	// https://en.wikipedia.org/wiki/List_of_Academy_Award_winners_and_nominees_for_Best_Foreign_Language_Film
+	public static final Object[][] bestLanguage = { { 1956, "Italian" }, { 1957, "Italian" },
+			{ 1958, "French" }, { 1959, "Portuguese" }, { 1960, "Swedish" }, { 1961, "Swedish" },
+			{ 1962, "French" }, { 1963, "Italian" }, { 1964, "Italian" }, { 1965, "Slovak" },
+			{ 1966, "French" }, { 1967, "Czech" }, { 1968, "Russian" }, { 1969, "French" },
+			{ 1970, "Italian" }, { 1971, "Italian" }, { 1972, "French" }, { 1973, "French" },
+			{ 1974, "Italian" }, { 1975, "Russian" }, { 1976, "French" }, { 1977, "French" },
+			{ 1978, "French" }, { 1979, "German" }, { 1980, "Russian" }, { 1981, "German" },
+			{ 1982, "Spanish" }, { 1983, "Swedish" }, { 1984, "French" }, { 1985, "Spanish" },
+			{ 1986, "Dutch" }, { 1987, "Danish" }, { 1988, "Danish" }, { 1989, "Italian" },
+			{ 1990, "German" }, { 1991, "Italian" }, { 1992, "French" }, { 1993, "Spanish" },
+			{ 1994, "Russian" }, { 1995, "Dutch" }, { 1996, "Czech" }, { 1997, "Dutch" },
+			{ 1998, "Italian" }, { 1999, "Spanish" }, { 2000, "Mandarin" }, { 2001, "Bosnian" },
+			{ 2002, "German" }, { 2003, "French" }, { 2004, "Spanish" }, { 2005, "Tsotsitaal" },
+			{ 2006, "German" }, { 2007, "German" }, { 2008, "Japanese" }, { 2009, "Spanish" },
+			{ 2010, "Danish" }, { 2011, "Persian" }, { 2012, "French" }, { 2013, "Italian" },
+			{ 2014, "Polish" }, { 2015, "Hungarian" },
+	};
+
 	// https://en.wikipedia.org/wiki/Academy_Award_for_Best_Makeup_and_Hairstyling
 	public static final Object[][] bestMakeUp = { { 1964, "7 Faces Of Dr Lao", "William J Tuttle" },
 			{ 1968, "Planet Of The Apes", "John Chambers" }, { 1981, "An American Werewolf In London", "Rick Baker" },

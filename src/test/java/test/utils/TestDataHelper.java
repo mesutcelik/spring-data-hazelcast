@@ -9,6 +9,7 @@ import com.hazelcast.core.DistributedObject;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
 
+import test.utils.domain.Language;
 import test.utils.domain.Makeup;
 import test.utils.domain.Movie;
 import test.utils.domain.Person;
@@ -44,10 +45,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public abstract class TestDataHelper {
 	@Autowired protected HazelcastInstance hazelcastInstance;
 
-	protected IMap<String, Makeup>  makeupMap;
-	protected IMap<String, Movie>  movieMap;
-	protected IMap<String, Person> personMap;
-	protected IMap<String, Song>   songMap;
+	protected IMap<Integer, Language>	languageMap;
+	protected IMap<String, Makeup>  	makeupMap;
+	protected IMap<String, Movie>  		movieMap;
+	protected IMap<String, Person> 		personMap;
+	protected IMap<String, Song>   		songMap;
 	
 	/* Use Hazelcast directly, minimise reliance on Spring as the object is
 	 * to test Spring encapsulation of Hazelcast.
@@ -58,6 +60,9 @@ public abstract class TestDataHelper {
 				equalTo(Constants.HAZELCAST_TEST_INSTANCE_NAME));
 
 		checkMapsEmpty("setUp");
+
+		this.languageMap = this.hazelcastInstance.getMap(Constants.LANGUAGE_MAP_NAME);
+		loadLanguage(this.languageMap);
 
 		this.makeupMap = this.hazelcastInstance.getMap(Constants.MAKEUP_MAP_NAME);
 		loadMakeup(this.makeupMap);
@@ -83,7 +88,7 @@ public abstract class TestDataHelper {
 
 	private void checkMapsEmpty(String phase) {
 		for (String mapName : Constants.OSCAR_MAP_NAMES) {
-			IMap<String, ?> iMap = this.hazelcastInstance.getMap(mapName);
+			IMap<?, ?> iMap = this.hazelcastInstance.getMap(mapName);
 			assertThat(phase + "(): No test data left behind by previous tests in '" + iMap.getName() + "'", 
 					iMap.size(), equalTo(0));
 		}
@@ -91,13 +96,24 @@ public abstract class TestDataHelper {
 
 	private void checkMapsNotEmpty(String phase) {
 		for (String mapName : Constants.OSCAR_MAP_NAMES) {
-			IMap<String, ?> iMap = this.hazelcastInstance.getMap(mapName);
+			IMap<?, ?> iMap = this.hazelcastInstance.getMap(mapName);
 			assertThat(phase + "(): Test data has been loaded into '" + iMap.getName() + "'", 
 					iMap.size(), greaterThan(0));
 		}
 	}
 
-	private void loadMakeup(IMap<String, Makeup> akeupMap) {
+	private void loadLanguage(IMap<Integer, Language> languageMap) {
+		for (int i = 0; i < Oscars.bestLanguage.length; i++) {
+			Language language = new Language();
+
+			language.setYear((int) Oscars.bestLanguage[i][0]);
+			language.setLanguage(Oscars.bestLanguage[i][1].toString());
+
+			languageMap.put(language.getYear(), language);
+		}
+	}
+
+	private void loadMakeup(IMap<String, Makeup> makeupMap) {
 		for (int i = 0; i < Oscars.bestMakeUp.length; i++) {
 			Makeup makeup = new Makeup();
 
@@ -146,7 +162,7 @@ public abstract class TestDataHelper {
 	@After
 	public void tearDown() {
 		for (String mapName : Constants.OSCAR_MAP_NAMES) {
-			IMap<String, ?> iMap = this.hazelcastInstance.getMap(mapName);
+			IMap<?, ?> iMap = this.hazelcastInstance.getMap(mapName);
 			iMap.clear();
 		}
 		
