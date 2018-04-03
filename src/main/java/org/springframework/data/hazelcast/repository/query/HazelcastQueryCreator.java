@@ -59,7 +59,8 @@ public class HazelcastQueryCreator extends AbstractQueryCreator<KeyValueQuery<Pr
 
     /**
      * Creates a new {@link HazelcastQueryCreator} for the given {@link PartTree} and {@link ParameterAccessor}. The
-     * latter is used to hand actual parameter values into the callback methods as well as to apply dynamic sorting via a
+     * latter is used to hand actual parameter values into the callback methods as well as to apply dynamic sorting
+     * via a
      * {@link Sort} parameter.
      *
      * @param tree       must not be {@literal null}.
@@ -89,7 +90,8 @@ public class HazelcastQueryCreator extends AbstractQueryCreator<KeyValueQuery<Pr
     /*
      * (non-Javadoc)
      * @see org.springframework.data.repository.query.parser.AbstractQueryCreator
-     *                          #and(org.springframework.data.repository.query.parser.Part, java.lang.Object, java.util.Iterator)
+     *                          #and(org.springframework.data.repository.query.parser.Part, java.lang.Object, java
+     *                          .util.Iterator)
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Override
@@ -111,7 +113,8 @@ public class HazelcastQueryCreator extends AbstractQueryCreator<KeyValueQuery<Pr
     /*
      * (non-Javadoc)
      * @see org.springframework.data.repository.query.parser.AbstractQueryCreator
-     *                                                       #complete(java.lang.Object, org.springframework.data.domain.Sort)
+     *                                                       #complete(java.lang.Object, org.springframework.data
+     *                                                       .domain.Sort)
      */
     @Override
     protected KeyValueQuery<Predicate<?, ?>> complete(Predicate<?, ?> criteria, Sort sort) {
@@ -173,9 +176,9 @@ public class HazelcastQueryCreator extends AbstractQueryCreator<KeyValueQuery<Pr
             case REGEX:
                 return Predicates.regex(property, iterator.next().toString());
             /* case EXISTS:
-			 * case NEAR:
-			 * case WITHIN:
-			 */
+             * case NEAR:
+             * case WITHIN:
+             */
             default:
                 throw new InvalidDataAccessApiUsageException(String.format("Unsupported type '%s'", type));
         }
@@ -240,13 +243,13 @@ public class HazelcastQueryCreator extends AbstractQueryCreator<KeyValueQuery<Pr
                                                 Iterator<Comparable<?>> iterator) {
         switch (type) {
             case SIMPLE_PROPERTY:
-                if(ignoreCase) {
+                if (ignoreCase) {
                     return Predicates.ilike(property, iterator.next().toString());
                 } else {
                     return Predicates.equal(property, iterator.next());
                 }
             case NEGATING_SIMPLE_PROPERTY:
-                if(ignoreCase) {
+                if (ignoreCase) {
                     return Predicates.not(Predicates.ilike(property, iterator.next().toString()));
                 } else {
                     return Predicates.notEqual(property, iterator.next());
